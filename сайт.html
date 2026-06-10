@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Пример Б</title>
+</head>
+<body>
+    <input type="number" id="sum" placeholder="Сумма счёта">
+    <input type="number" id="percentage" placeholder="Процент чаевых">
+    <input type="number" id="people" placeholder="Количество человек">
+    <button id="sumBtn">Рассчитать</button>
+    <p id="result"></p>
+    <p id="result2"></p>
+    <p id="result3"></p>
+
+    <script>
+        let input1 = document.querySelector('#sum');
+        let input2 = document.querySelector('#percentage');
+        let input3 = document.querySelector('#people');
+        let btn = document.querySelector('#sumBtn');
+        
+        let resultP = document.querySelector('#result');
+        let resultS = document.querySelector('#result2');
+        let resultSP = document.querySelector('#result3');
+
+        // Функция возвращает чаевые
+        function calculateTips(a, b) {
+            return a * (b / 100);
+        }
+
+        btn.onclick = function() {
+            // Получаем значения
+            let sum = Number(input1.value);
+            let percentage = Number(input2.value);
+            let people = Number(input3.value);
+            
+            // Проверка на пустые поля
+            if (input1.value === "" || input2.value === "" || input3.value === "") {
+                resultP.textContent = "Ошибка: все поля должны быть заполнены";
+                resultP.style.color = "red";
+                return;
+            }
+            
+            // Проверка на корректность
+            if (sum <= 0 || percentage < 0 || people <= 0) {
+                resultP.textContent = "Ошибка: сумма > 0, процент ≥ 0, людей > 0";
+                resultP.style.color = "red";
+                return;
+            }
+            
+            // Расчёты
+            let tips = calculateTips(sum, percentage);  // чаевые
+            let paySum = sum + tips;                     // общая сумма
+            let peopleSum = paySum / people;             // на человека
+            
+            // Вывод результатов
+            resultP.textContent = "Чаевые: " + tips.toFixed(2) + " руб.";
+            resultP.style.color = "green";
+            
+            resultS.textContent = "Общая сумма: " + paySum.toFixed(2) + " руб.";
+            resultS.style.color = "green";
+            
+            resultSP.textContent = "Сумма на человека: " + peopleSum.toFixed(2) + " руб.";
+            resultSP.style.color = "green";
+        }
+    </script>
+</body>
+</html>
